@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Buy Pixels - THE 10 MILLION PIXELS PLUS</title>
+    <style>
+        body { background: #f4f4f4; font-family: 'Verdana', sans-serif; text-align: center; padding: 50px; }
+        .order-card { background: #fff; padding: 40px; border: 3px solid #D4AF37; display: inline-block; width: 380px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-radius: 5px; }
+        h2 { color: #D4AF37; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; }
+        input { width: 90%; padding: 12px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; outline: none; }
+        input:focus { border-color: #D4AF37; }
+        button { width: 97%; padding: 15px; background: linear-gradient(#cc0000, #990000); color: #fff; border: none; cursor: pointer; font-weight: bold; border-radius: 4px; font-size: 16px; box-shadow: 2px 2px 5px rgba(0,0,0,0.3); transition: 0.3s; }
+        button:hover { background: #ff0000; transform: scale(1.02); }
+        .back-link { display: block; margin-top: 20px; text-decoration: none; color: #0056b3; font-weight: bold; font-size: 13px; }
+        .notice { font-size: 11px; color: #666; margin-top: 15px; line-height: 1.5; background: #fffeb3; padding: 10px; border: 1px dashed #cc0000; }
+    </style>
+</head>
+<body>
+
+<div class="order-card">
+    <h2>Buy Pixels</h2>
+    <input type="number" id="amt" placeholder="Amount of Pixels (Min 10)">
+    <input type="text" id="bizName" placeholder="Your Name / Business Name">
+    <button onclick="submitOrder()">SUBMIT ORDER</button>
+    
+    <div class="notice">
+        <strong>⚠️ IMPORTANT:</strong> After clicking SUBMIT, you will get a Search ID. Save it and send the screenshot to our WhatsApp for approval.
+    </div>
+    
+    <a href="index.html" class="back-link">← BACK TO HOMEPAGE</a>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+<script>
+    const firebaseConfig = { databaseURL: "https://m-legacy-5cf2b-default-rtdb.firebaseio.com/" };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    function submitOrder() {
+        const val = document.getElementById('amt').value;
+        const name = document.getElementById('bizName').value;
+        
+        if(val < 10) { alert("Minimum purchase is 10 pixels ($10)"); return; }
+        if(!name) { alert("Please enter your name or business name"); return; }
+
+        // একটি ইউনিক আইডি তৈরি করা (যেমন: P123456)
+        const id = "P" + Math.floor(100000 + Math.random() * 900000);
+        
+        db.ref('pending_orders/' + id).set({
+            usdAmount: val,
+            pixelCount: val,
+            name: name,
+            orderId: id,
+            // ম্যাপে একটি র‍্যান্ডম জায়গায় পিক্সেলটি প্রাথমিক ভাবে সেট করা
+            x: Math.floor(Math.random() * 4800),
+            y: Math.floor(Math.random() * 1800)
+        }).then(() => {
+            alert("ORDER SUBMITTED!\n\nYour Search ID: " + id + "\n\nPlease send this ID and Payment Screenshot to WhatsApp.");
+            window.location.href = "index.html";
+        }).catch((error) => {
+            alert("Error: " + error.message);
+        });
+    }
+</script>
+</body>
+</html>
