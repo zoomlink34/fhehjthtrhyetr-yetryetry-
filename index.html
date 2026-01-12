@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>THE 10 MILLION PIXELS PLUS</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+</head>
+<body>
+<header class="classic-header">
+    <div class="purchase-top-bar">
+        <div class="payment-info">
+            <span class="pay-label">DIRECT PAYMENT:</span>
+            <button class="pay-btn binance-uid" onclick="copy('912221034')">BINANCE UID</button>
+            <button class="pay-btn usdt-addr" onclick="copy('TTapBkTqrDnzHbWzek6wSBUTcJKFmR8Ws6')">USDT (TRC20)</button>
+        </div>
+        <div class="order-link-area">
+            <a href="order.html" class="highlight-buy-btn">BUY PIXELS</a>
+        </div>
+    </div>
+    <div class="logo-row">
+        <div id="fire-container">
+            <canvas id="fireCanvas"></canvas>
+            <h1 class="site-name">THE 10 MILLION PIXELS PLUS</h1>
+        </div>
+        <div class="social-side-tray">
+            <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png"></a>
+            <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png"></a>
+            <a href="https://wa.me/8801576940717"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png"></a>
+            <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png"></a>
+        </div>
+        <div class="stats-area"><span id="pixel-count-display">0</span> / 10,000,000 Sold</div>
+    </div>
+    <nav class="classic-nav">
+        <button class="support-popup-btn" onclick="toggleNotice()">WhatsApp Support & Rules</button>
+        <div id="noticeBox" class="notice-modal">
+            <p><strong>⚠️ NOTICE:</strong> After payment, send Transaction ID & Screenshot to WhatsApp: <strong>+8801576940717</strong></p>
+            <button onclick="toggleNotice()">Close</button>
+        </div>
+    </nav>
+</header>
+<main class="content-frame">
+    <div id="pixel-viewport">
+        <div id="sold-out-overlay">SOLD OUT!</div>
+        <div id="canvas-mover"><canvas id="mainCanvas"></canvas></div>
+    </div>
+</main>
+<footer class="classic-footer">
+    <p>THE 10 MILLION PIXELS PLUS © 2026 Kawsar Tew. All rights reserved.</p>
+</footer>
+<script src="script.js"></script>
+<script>
+    function copy(t){navigator.clipboard.writeText(t).then(()=>alert("Copied: "+t));}
+    function toggleNotice(){const b=document.getElementById('noticeBox'); b.style.display=b.style.display==='block'?'none':'block';}
+</script>
+</body>
+</html>
