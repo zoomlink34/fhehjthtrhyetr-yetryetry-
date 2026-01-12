@@ -1,0 +1,18 @@
+body { margin: 0; background: #f4f4f4; font-family: 'Verdana', sans-serif; overflow-x: hidden; }
+.classic-header { background: #fff; border-bottom: 3px solid #D4AF37; text-align: center; }
+.purchase-top-bar { background: #eee; padding: 10px; display: flex; justify-content: space-around; border-bottom: 1px solid #ccc; }
+.binance-uid { background: linear-gradient(#f3ba2f, #d4a017); color: #000; border: 1px solid #888; font-weight: bold; cursor: pointer; padding: 5px 15px; }
+.usdt-addr { background: linear-gradient(#26a17b, #1a7a5d); color: #fff; border: 1px solid #888; font-weight: bold; cursor: pointer; padding: 5px 15px; }
+.highlight-buy-btn { background: #cc0000; color: #fff; text-decoration: none; padding: 8px 20px; font-weight: bold; border: 2px solid #fff; box-shadow: 2px 2px 5px #000; }
+#fire-container { position: relative; width: 100%; height: 120px; background: #000; overflow: hidden; }
+#fireCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+.site-name { font-size: 34px; color: #fff; position: relative; z-index: 10; margin-top: 35px; text-shadow: 0 0 10px #ffae00; }
+.social-side-tray { position: absolute; right: 10px; top: 150px; display: flex; flex-direction: column; z-index: 20; }
+.social-side-tray img { width: 22px; margin: 5px; border: 1px solid #ccc; background: #fff; padding: 2px; }
+.support-popup-btn { background: #25D366; color: white; border: none; padding: 7px 20px; font-weight: bold; cursor: pointer; border-radius: 20px; margin: 10px; }
+.notice-modal { display: none; position: absolute; left: 50%; transform: translateX(-50%); background: #fffeb3; border: 2px solid #cc0000; padding: 15px; width: 280px; z-index: 100; box-shadow: 0 0 10px #000; }
+.content-frame { max-width: 1100px; margin: 10px auto; border: 2px solid #0056b3; background: #fff; }
+#pixel-viewport { width: 100%; height: 600px; position: relative; overflow: hidden; cursor: crosshair; }
+#canvas-mover { position: absolute; transform-origin: 0 0; }
+.classic-footer { text-align: center; padding: 20px; font-size: 11px; font-weight: bold; }
+#sold-out-overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(204,0,0,0.9); color: #fff; font-size: 60px; padding: 20px; display: none; }
