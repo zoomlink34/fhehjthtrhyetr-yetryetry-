@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head><title>Admin - THE 10 MILLION PIXELS PLUS</title></head>
+<body style="background:#111; color:#fff; font-family:sans-serif; padding:20px;">
+    <div id="auth" style="text-align:center; margin-top:100px;">
+        <h2>Admin Access</h2>
+        <input type="password" id="p" placeholder="Password"> <button onclick="login()">Enter</button>
+    </div>
+    <div id="main" style="display:none; max-width:800px; margin:auto;">
+        <div style="display:flex; justify-content:space-between; border-bottom:1px solid #444;">
+            <h2>PENDING ORDERS</h2>
+            <a href="index.html" style="color:#D4AF37; text-decoration:none;">← SITE</a>
+        </div>
+        <div id="list"></div>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    <script>
+        firebase.initializeApp({databaseURL: "https://m-legacy-5cf2b-default-rtdb.firebaseio.com/"});
+        const db = firebase.database();
+        function login(){ if(document.getElementById('p').value==='KAWSARahmed22@@'){document.getElementById('auth').style.display='none';document.getElementById('main').style.display='block';load();} else alert('Wrong!'); }
+        function load(){
+            db.ref('pending_orders').on('value', s => {
+                const l = document.getElementById('list'); l.innerHTML = "";
+                const d = s.val(); if(!d) { l.innerHTML = "No orders."; return; }
+                Object.keys(d).forEach(id => {
+                    l.innerHTML += `<div style="border:1px solid #D4AF37; padding:15px; margin:15px 0; background:#222;">
+                        <strong>ID: ${id}</strong> | Name: ${d[id].name} | Amt: $${d[id].usdAmount}<br><br>
+                        <input type="text" id="img_${id}" placeholder="Logo Link (Direct URL)" style="width:100%; margin-bottom:5px;">
+                        <input type="text" id="url_${id}" placeholder="Website URL (https://...)" style="width:100%;"><br><br>
+                        <button onclick="app('${id}')" style="background:#28a745; color:#fff; border:none; padding:10px 20px; cursor:pointer;">APPROVE</button>
+                        <button onclick="rej('${id}')" style="background:#dc3545; color:#fff; border:none; padding:10px 20px; cursor:pointer;">REJECT</button>
+                    </div>`;
+                });
+            });
+        }
+        function app(id){
+            const img = document.getElementById('img_'+id).value;
+            const url = document.getElementById('url_'+id).value;
+            if(!img || !url) { alert("Please enter both Logo and Link!"); return; }
+            db.ref('pending_orders/'+id).once('value', s => {
+                let data = s.val(); data.imageUrl = img; data.websiteUrl = url;
+                db.ref('pixels/'+id).set(data).then(()=>db.ref('pending_orders/'+id).remove());
+                alert("Approved!");
+            });
+        }
+        function rej(id){ if(confirm("Delete order?")) db.ref('pending_orders/'+id).remove(); }
+    </script>
+</body>
+</html>
